@@ -156,6 +156,6 @@ class MyServices : Service() {
 
     companion object {
         const val MyServices_BROADCAST_ACTION = "com.mukesh.MyServices";
-        const val notify = 12000 //interval between two services(Here Service run every 5 Minute)
+        const val notify = 5000 //interval between two services(Here Service run every 5 Minute)
     }
 }

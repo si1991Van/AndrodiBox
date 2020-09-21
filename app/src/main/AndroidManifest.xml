@@ -13,10 +13,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustPan|adjustPan|adjustResize"
-        tools:replace="android:allowBackup"
-        android:theme="@style/AppTheme">
+        tools:replace="android:allowBackup">
+        <activity android:name=".TestActivity"></activity>
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
@@ -28,14 +30,14 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <service android:name=".MyServices"
+        <service
+            android:name=".MyServices"
             android:enabled="true"
-            android:exported="true">
-        </service>
-        <service android:name=".UpdateService"
+            android:exported="true"></service>
+        <service
+            android:name=".UpdateService"
             android:enabled="true"
-            android:exported="true">
-        </service>
+            android:exported="true"></service>
 
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -57,9 +57,10 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback{
     private fun initView() {
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-//        startService(Intent(this, MyServices::class.java))
-        startService(Intent(this, UpdateService::class.java))
-        getListLocation()
+        startService(Intent(this, MyServices::class.java))
+//        startService(Intent(this, UpdateService::class.java))
+//        getListLocation()
+        getLocations()
     }
 
     private fun getBookCar() {
@@ -152,7 +153,7 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback{
             mMap.isMyLocationEnabled = true
 
             var location = mMap.myLocation
-            if (location == null) location = locationTrackObj!!.getLocation()
+            if (location == null) location = locationTrackObj?.getLocation()
             try {
                 mMap.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(
@@ -244,8 +245,8 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback{
 
     override fun onDestroy() {
         super.onDestroy()
-//        stopService(Intent(this, MyServices::class.java))
-        stopService(Intent(this, UpdateService::class.java))
+        stopService(Intent(this, MyServices::class.java))
+//        stopService(Intent(this, UpdateService::class.java))
         unregisterReceiver(broadcastReceiver)
 //        unregisterReceiver(broadcastReceiver)
     }
@@ -254,22 +255,22 @@ class MainActivity : FragmentActivity(), OnMapReadyCallback{
         override fun onReceive(context: Context?, intent: Intent?) {
 //            Log.e("Tag: ", locationTrackObj?.getLocation()?.bearingTo(latLng))
 
-            getBookCar()
-//            getLocations()
+//            getBookCar()
+            getLocations()
         }
     }
     override fun onResume() {
         super.onResume()
-        registerReceiver(broadcastReceiver, IntentFilter(
-                UpdateService.BROADCAST_ACTION))
 //        registerReceiver(broadcastReceiver, IntentFilter(
-//                MyServices.MyServices_BROADCAST_ACTION))
+//                UpdateService.BROADCAST_ACTION))
+        registerReceiver(broadcastReceiver, IntentFilter(
+                MyServices.MyServices_BROADCAST_ACTION))
     }
 
     private fun getLocations() {
         val body = RequestBody()
-        body.latitude = latLng.latitude
-        body.longtitude = latLng.longitude
+        body.latitude = locationTrackObj?.getLatitude()
+        body.longtitude = locationTrackObj?.getLongitude()
 //        body.posTime = setDataToday()
         // 1 duong bang phang
         // 2 duong doi nui
